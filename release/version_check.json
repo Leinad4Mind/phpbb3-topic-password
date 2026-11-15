@@ -1,0 +1,11 @@
+{
+    "stable": {
+        "4.0": {
+            "current": "4.0.0",
+            "download": "https://github.com/Leinad4Mind/phpbb3-topic-password/releases/tag/v4.0.0",
+            "announcement": "https://github.com/Leinad4Mind/phpbb3-topic-password/releases/tag/v4.0.0",
+            "eol": null,
+            "security": false
+        }
+    }
+}
