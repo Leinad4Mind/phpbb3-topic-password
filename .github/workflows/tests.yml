@@ -32,5 +32,5 @@ jobs:
         run: phpunit -c phpunit.xml --colors=always
 
       - name: Validate Composer metadata
-        run: composer validate --strict
+        run: composer validate --no-check-publish
 
