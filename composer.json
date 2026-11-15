@@ -36,8 +36,8 @@
             "phpbb/phpbb": ">=3.3.19,<3.4.0@dev"
         },
         "version-check": {
-            "host": "leinad4mind.top",
-            "directory": "/phpbb/topicpassword",
+            "host": "raw.githubusercontent.com",
+            "directory": "/Leinad4Mind/phpbb3-topic-password/main/release",
             "filename": "version_check.json",
             "ssl": true
         }
