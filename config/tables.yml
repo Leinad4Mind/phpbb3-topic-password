@@ -1,0 +1,7 @@
+parameters:
+    leinad4mind.topicpassword.tables.access: '%core.table_prefix%topics_access'
+    leinad4mind.topicpassword.tables.attempts: '%core.table_prefix%topic_password_attempts'
+    leinad4mind.topicpassword.tables.forums: '%core.table_prefix%forums'
+    leinad4mind.topicpassword.tables.posts: '%core.table_prefix%posts'
+    leinad4mind.topicpassword.tables.sessions: '%core.table_prefix%sessions'
+    leinad4mind.topicpassword.tables.topics: '%core.table_prefix%topics'

@@ -1,0 +1,16 @@
+{% if S_TOPIC_PASSWORD_AVAILABLE %}
+	<dl>
+		<dt><label for="topic_password">{{ lang('TOPICPASSWORD') ~ lang('COLON') }}</label><br><span>{{ lang('TOPICPASSWORD_CHANGE_EXPLAIN') }}</span></dt>
+		<dd><input type="password" name="topic_password" id="topic_password" class="inputbox autowidth" autocomplete="new-password" maxlength="72"></dd>
+	</dl>
+	<dl>
+		<dt><label for="topic_password_confirm">{{ lang('TOPICPASSWORD_CONFIRM') ~ lang('COLON') }}</label></dt>
+		<dd><input type="password" name="topic_password_confirm" id="topic_password_confirm" class="inputbox autowidth" autocomplete="new-password" maxlength="72"></dd>
+	</dl>
+	{% if S_TOPIC_PASSWORD_PROTECTED %}
+		<dl>
+			<dt><label for="topic_password_remove">{{ lang('TOPICPASSWORD_REMOVE') }}</label></dt>
+			<dd><input type="checkbox" name="topic_password_remove" id="topic_password_remove" value="1"></dd>
+		</dl>
+	{% endif %}
+{% endif %}

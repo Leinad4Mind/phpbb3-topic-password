@@ -1,0 +1,5 @@
+<dl>
+	<dt><label for="forum_allow_topic_password">{{ lang('TOPICPASSWORD_FORUM_ALLOW') ~ lang('COLON') }}</label><br><span>{{ lang('TOPICPASSWORD_FORUM_ALLOW_EXPLAIN') }}</span></dt>
+	<dd><label><input type="radio" class="radio" name="forum_allow_topic_password" value="1"{% if S_FORUM_ALLOW_TOPIC_PASSWORD %} checked{% endif %}> {{ lang('YES') }}</label>
+		<label><input type="radio" class="radio" name="forum_allow_topic_password" value="0"{% if not S_FORUM_ALLOW_TOPIC_PASSWORD %} checked{% endif %}> {{ lang('NO') }}</label></dd>
+</dl>

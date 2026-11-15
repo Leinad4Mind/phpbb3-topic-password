@@ -1,0 +1,45 @@
+{
+    "name": "leinad4mind/topicpassword",
+    "type": "phpbb-extension",
+    "description": "Protects individual phpBB topics with a session-scoped password challenge.",
+    "homepage": "https://leinad4mind.top/forum",
+    "version": "4.0.0",
+    "time": "2026-11-14",
+    "keywords": ["phpbb", "extension", "topic", "password", "access-control"],
+    "license": "GPL-2.0-only",
+    "authors": [
+        {
+            "name": "Leinad4Mind",
+            "homepage": "https://leinad4mind.top/forum",
+            "role": "Developer"
+        },
+        {
+            "name": "Mykee",
+            "role": "Topic Password 3.0.0 developer"
+        },
+        {
+            "name": "Martin (Kamahl19)",
+            "role": "Topic Password MOD 2.1.0 developer"
+        },
+        {
+            "name": "Barry Carlyon and Pthelovod",
+            "role": "Original Topic Password MOD contributors"
+        }
+    ],
+    "require": {
+        "php": ">=8.1.0",
+        "composer/installers": "^1.0 || ^2.0"
+    },
+    "extra": {
+        "display-name": "[Leinad4Mind] Topic Password",
+        "soft-require": {
+            "phpbb/phpbb": ">=3.3.19,<3.4.0@dev"
+        },
+        "version-check": {
+            "host": "leinad4mind.top",
+            "directory": "/phpbb/topicpassword",
+            "filename": "version_check.json",
+            "ssl": true
+        }
+    }
+}

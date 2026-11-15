@@ -1,0 +1,150 @@
+imports:
+    - { resource: 'tables.yml' }
+
+services:
+    leinad4mind.topicpassword.repository.topic:
+        class: leinad4mind\topicpassword\repository\topic_repository
+        arguments:
+            - '@dbal.conn'
+            - '%leinad4mind.topicpassword.tables.topics%'
+            - '%leinad4mind.topicpassword.tables.forums%'
+            - '%leinad4mind.topicpassword.tables.posts%'
+
+    leinad4mind.topicpassword.repository.grant:
+        class: leinad4mind\topicpassword\repository\grant_repository
+        arguments:
+            - '@dbal.conn'
+            - '%leinad4mind.topicpassword.tables.access%'
+            - '%leinad4mind.topicpassword.tables.sessions%'
+
+    leinad4mind.topicpassword.repository.attempt:
+        class: leinad4mind\topicpassword\repository\attempt_repository
+        arguments:
+            - '@dbal.conn'
+            - '%leinad4mind.topicpassword.tables.attempts%'
+
+    leinad4mind.topicpassword.access_policy:
+        class: leinad4mind\topicpassword\core\access_policy
+        arguments:
+            - '@auth'
+            - '@content.visibility'
+
+    leinad4mind.topicpassword.password_editor:
+        class: leinad4mind\topicpassword\core\password_editor
+        arguments:
+            - '@passwords.manager'
+
+    leinad4mind.topicpassword.access_manager:
+        class: leinad4mind\topicpassword\core\access_manager
+        arguments:
+            - '@config'
+            - '@passwords.manager'
+            - '@user'
+            - '@leinad4mind.topicpassword.access_policy'
+            - '@leinad4mind.topicpassword.repository.topic'
+            - '@leinad4mind.topicpassword.repository.grant'
+            - '@leinad4mind.topicpassword.repository.attempt'
+
+    leinad4mind.topicpassword.return_target:
+        class: leinad4mind\topicpassword\core\return_target
+        arguments:
+            - '%core.root_path%'
+            - '%core.php_ext%'
+
+    leinad4mind.topicpassword.controller.access:
+        class: leinad4mind\topicpassword\controller\access_controller
+        arguments:
+            - '@controller.helper'
+            - '@language'
+            - '@request'
+            - '@template'
+            - '@user'
+            - '@leinad4mind.topicpassword.access_policy'
+            - '@leinad4mind.topicpassword.access_manager'
+            - '@leinad4mind.topicpassword.repository.topic'
+            - '@leinad4mind.topicpassword.return_target'
+
+    leinad4mind.topicpassword.event.access:
+        class: leinad4mind\topicpassword\event\access_listener
+        arguments:
+            - '@controller.helper'
+            - '@language'
+            - '@leinad4mind.topicpassword.access_policy'
+            - '@leinad4mind.topicpassword.access_manager'
+            - '@leinad4mind.topicpassword.repository.topic'
+        tags:
+            - { name: event.listener }
+
+    leinad4mind.topicpassword.event.posting:
+        class: leinad4mind\topicpassword\event\posting_listener
+        arguments:
+            - '@request'
+            - '@user'
+            - '@leinad4mind.topicpassword.password_editor'
+            - '@leinad4mind.topicpassword.repository.grant'
+            - '@config'
+        tags:
+            - { name: event.listener }
+
+    leinad4mind.topicpassword.event.presentation:
+        class: leinad4mind\topicpassword\event\presentation_listener
+        tags:
+            - { name: event.listener }
+
+    leinad4mind.topicpassword.event.lifecycle:
+        class: leinad4mind\topicpassword\event\lifecycle_listener
+        arguments:
+            - '@request'
+            - '@user'
+            - '@leinad4mind.topicpassword.repository.topic'
+            - '@leinad4mind.topicpassword.repository.grant'
+            - '@leinad4mind.topicpassword.repository.attempt'
+            - '%leinad4mind.topicpassword.tables.access%'
+            - '%leinad4mind.topicpassword.tables.attempts%'
+        tags:
+            - { name: event.listener }
+
+    leinad4mind.topicpassword.event.acp_forum:
+        class: leinad4mind\topicpassword\event\acp_forum_listener
+        arguments:
+            - '@language'
+            - '@request'
+            - '@leinad4mind.topicpassword.repository.topic'
+        tags:
+            - { name: event.listener }
+
+    leinad4mind.topicpassword.event.visibility:
+        class: leinad4mind\topicpassword\event\visibility_listener
+        arguments:
+            - '%leinad4mind.topicpassword.tables.topics%'
+            - '@leinad4mind.topicpassword.repository.topic'
+            - '@config'
+        tags:
+            - { name: event.listener }
+
+    leinad4mind.topicpassword.event.notification:
+        class: leinad4mind\topicpassword\event\notification_listener
+        arguments:
+            - '@leinad4mind.topicpassword.repository.topic'
+        tags:
+            - { name: event.listener }
+
+    leinad4mind.topicpassword.console.audit:
+        class: leinad4mind\topicpassword\console\audit_command
+        arguments:
+            - '@leinad4mind.topicpassword.repository.topic'
+        tags:
+            - { name: console.command }
+
+    leinad4mind.topicpassword.console.remove_all:
+        class: leinad4mind\topicpassword\console\remove_all_command
+        arguments:
+            - '@dbal.conn'
+            - '@log'
+            - '@leinad4mind.topicpassword.repository.topic'
+            - '%leinad4mind.topicpassword.tables.topics%'
+            - '%leinad4mind.topicpassword.tables.access%'
+            - '%leinad4mind.topicpassword.tables.attempts%'
+            - '@config'
+        tags:
+            - { name: console.command }

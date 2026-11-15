@@ -1,0 +1,6 @@
+leinad4mind_topicpassword_access:
+    path: /topic-password/{topic_id}
+    methods: [GET, POST]
+    defaults: { _controller: 'leinad4mind.topicpassword.controller.access:handle' }
+    requirements:
+        topic_id: \d+
